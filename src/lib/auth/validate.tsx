@@ -17,15 +17,9 @@ export default function Validate({ children }: { children: React.ReactNode }) {
       })
     }
     if (session?.error && session.error === "RefreshAccessTokenError") {
-      signOut().then(() => {
-        router.push("/")
-      })
+      void signOut()
     }
-    // TODO: Move this feature to middleware
-    if (!session) {
-      router.push("/")
-    }
-  }, [session, update, router])
+  }, [session, update])
 
   return children
 }
