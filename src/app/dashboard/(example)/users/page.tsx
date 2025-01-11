@@ -1,39 +1,14 @@
-import Link from "next/link"
-
-import PlaceholderContent from "@/components/placeholder-content"
 import { ContentLayout } from "@/components/content-layout"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import { getUsers } from "@/actions/users"
+import { DataTable } from "@/app/dashboard/(example)/users/_components/data-table"
+import { columns } from "@/app/dashboard/(example)/users/_components/columns"
 
-export default function UsersPage() {
+export default async function UsersPage() {
+  const users = await getUsers()
   return (
     <ContentLayout title="Users">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/">Home</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/dashboard">Dashboard</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Users</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-      <PlaceholderContent />
+      {/*<div>{JSON.stringify(users)}</div>*/}
+      <DataTable columns={columns} data={users} />
     </ContentLayout>
   )
 }
